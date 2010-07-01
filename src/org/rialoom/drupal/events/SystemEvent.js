@@ -38,7 +38,7 @@ org.rialoom.drupal.events.SystemEvent.prototype.getData = function ( )
  */
 org.rialoom.drupal.events.SystemEvent.prototype.toString = function ( )
 {
-    return "[org.rialoom.drupal.events.SystemEvent type: " + _type + " | target: " + _target + " ]";
+    return "[org.rialoom.drupal.events.SystemEvent type: " + this.getType() + " | target: " + this.getTarget() + " ]";
 };
 
 
