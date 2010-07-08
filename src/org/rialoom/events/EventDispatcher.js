@@ -15,26 +15,28 @@ org.rialoom.events.EventDispatcher = function ( )
     /**
      *  Adds listener
      *  eventName:String   event type
+     *  eventClass:String   event class
      *  scope:Object   scope the listener should work with
      *  func:Function   the listener function
      *  Returns boolean flag.
      */
-    this.addEventListener = function ( eventName, scope, func ) //:Boolean
+    this.addEventListener = function ( eventName, scope, func, eventClass ) //:Boolean
     {
-        var _list = _listCol.getListenerList(eventName);
-        if ( !_list ) _list = _listCol.addListenerList(eventName);
+        var _list = _listCol.getListenerList(eventName, eventClass);
+        if ( !_list ) _list = _listCol.addListenerList(eventName, eventClass);
         return _list.addEventListener(scope, func);
     };
     /**
      *  Removes listener
      *  eventName:String   event type
+     *  eventClass:String   event class
      *  scope:Object   scope the listener works with
      *  func:Function   the listener function
      *  Returns boolean flag.
      */
-    this.removeEventListener = function ( eventName, scope, func ) //:Boolean
+    this.removeEventListener = function ( eventName, scope, func, eventClass ) //:Boolean
     {
-        var _list = _listCol.getListenerList(eventName);
+        var _list = _listCol.getListenerList(eventName, eventClass);
         if ( !_list ) return false;
         return _list.removeEventListener(scope, func);
     };
@@ -43,13 +45,25 @@ org.rialoom.events.EventDispatcher = function ( )
      */
     this.dispatchEvent = function ( event )//:void
     {
-        var _list = _listCol.getListenerList(event.getType());
-        if ( !_list ) return;
-        var _listeners = _list.getListeners();
-        for ( var i = 0; i < _listeners.length; i++ )
+        var _list1 = _listCol.getListenerList(event.getType(), event.constructor);
+        var _list2 = _listCol.getListenerList(event.getType());
+        if ( _list1 != null )
         {
-            if ( event.getIsPropagationStopped() ) break;
-            _listeners[i].func.call(_listeners[i].scope, event);
+            var _listeners1 = _list1.getListeners();
+            for ( var i = 0; i < _listeners1.length; i++ )
+            {
+                if ( event.getIsPropagationStopped() ) return;
+                _listeners1[i].func.call(_listeners1[i].scope, event);
+            }
+        }
+        if ( _list2 != null )
+        {
+            var _listeners2 = _list2.getListeners();
+            for ( var j = 0; j < _listeners2.length; j++ )
+            {
+                if ( event.getIsPropagationStopped() ) return;
+                _listeners2[j].func.call(_listeners2[j].scope, event);
+            }
         }
     };
     /**
