@@ -30,13 +30,15 @@ org.rialoom.events.Event = function ( type, target )
     {
         _propagationStopped = true;
     };
-    /**
-     *
-     */
-    this.toString = function ( )
-    {
-        return "[org.rialoom.events.Event type: " + _type + " | target: " + _target + " ]";
-    };
+};
+
+
+/**
+ *
+ */
+org.rialoom.events.Event.prototype.toString = function ( )
+{
+    return "[org.rialoom.events.Event type: " + this.getType() + " | target: " + this.getTarget() + " ]";
 };
 
 org.rialoom.events.Event.COMPLETE = "COMPLETE";
