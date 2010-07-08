@@ -13,13 +13,14 @@ org.rialoom.mvcs.AbstractMediator = function ( )
 {
     org.rialoom.mvcs.Actor.call(this);
     // mixed in by MediatorMap
+    this.getModelMap = function () {};
     this.$view = null;
 };
 
 org.rialoom.utils.ClassUtils.inherits(org.rialoom.mvcs.AbstractMediator, org.rialoom.mvcs.Actor);
 
 
-org.rialoom.mvcs.AbstractMediator.prototype.init = function ( )
+org.rialoom.mvcs.AbstractMediator.prototype.onRegister = function ( )
 {
     throw new Error("org.rialoom.mvcs.AbstractMediator must be overriden by subclass!");
 };

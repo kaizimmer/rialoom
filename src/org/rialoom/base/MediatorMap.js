@@ -9,11 +9,12 @@ org.rialoom.utils.ClassUtils.createPackage("org.rialoom.base");
  * MediatorMap constructor
  * @author k.zimmer aka engimono
  */
-org.rialoom.base.MediatorMap = function ( eventDispatcher )
+org.rialoom.base.MediatorMap = function ( eventDispatcher, modelMap )
 {
     var _actorMap = new org.rialoom.base.ActorMap(eventDispatcher)
+    var _modelMap = modelMap;
     /**
-     *  Returns instance of the passed mediatorClass(:String)
+     *  Returns instance of the passed mediatorClass(:Function)
      *  Returns null if corresponding model does not exist.
      */
      this.getMediator = function ( mediatorClass )
@@ -28,8 +29,10 @@ org.rialoom.base.MediatorMap = function ( eventDispatcher )
          if ( mediatorClass == null )
                 throw new Error ("org.rialoom.base.MediatorMap.addModel | passed bad mediatorClass param: " + mediatorClass);
          var m = _actorMap.addActor(mediatorClass);
+         // mixin modelMap acces
+         m.getModelMap = function ( ) { return _modelMap };
          m.$view = $view;
-         m.init();
+         m.onRegister();
      };
 };
 
