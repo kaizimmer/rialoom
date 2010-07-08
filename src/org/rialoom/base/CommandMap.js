@@ -28,6 +28,8 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
         var cmds = _eventLists[type].commands;
         for ( var i = 0; i < cmds.length; i++ )
         {
+            // prevent commands registered with an eventClass parameter from being executed if the event type is the wrong one
+            if ( cmds[i].eventClass != null && !( e instanceof cmds[i].eventClass ) ) continue;
             // create mixin execute
             var cmd = new cmds[i].command();
             cmd.dispatch = function ( event )
@@ -43,6 +45,7 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
         // delete one shots
         for ( i = cmds.length - 1; i >= 0; i-- )
         {
+            if ( cmds[i].eventClass != null && !( e instanceof cmds[i].eventClass ) ) continue;
             if ( cmds[i].isOneShot )
             {
                 cmds.splice(i,1);
@@ -70,7 +73,6 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
             _eventLists[eventType] =
             {
                 eventType: eventType,
-                eventClass: eventClass,
                 commands: []
             };
         }
@@ -78,6 +80,7 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
         _eventLists[eventType].commands.push(
             {
                 command: commandClass,
+                eventClass: eventClass,
                 isOneShot: oneShot
             }
         );
@@ -98,6 +101,7 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
         {
             if ( cmds[i].command == commandClass )
             {
+                if ( cmds[i].eventClass != null && cmds[i].eventClass != eventClass ) continue;
                 cmds.splice(i,1);
                 return true;
             }
