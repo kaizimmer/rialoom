@@ -33,7 +33,7 @@ org.rialoom.base.ActorMap = function ( eventDispatcher )
         return a;
     };
     /**
-     *  Returns instance of the passed actorClass(:String)
+     *  Returns instance of the passed actorClass(:Function)
      *  Returns null if corresponding actor does not exist.
      */
      this.getActor = function ( actorClass )
