@@ -63,7 +63,7 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
         if ( !commandClass || !(commandClass.prototype instanceof baseClass) )
         {
             throw new Error("org.rialoom.base.CommandMap .mapEvent() | "
-                            + "commandClass param is no subclass of "
+                            + "commandClass param "+ commandClass + " is no subclass of "
                             + baseClass + "!");
         }
         //*/

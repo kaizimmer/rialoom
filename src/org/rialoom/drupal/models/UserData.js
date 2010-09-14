@@ -42,7 +42,7 @@ org.rialoom.drupal.models.UserData.prototype.getSessionId = function ( )
 org.rialoom.drupal.models.UserData.prototype.setSessionId = function ( id )
 {
     this.id = id;
-    if ( console ) console.log("org.rialoom.drupal.models.UserData .setSessionId() | id: " + id);
+    org.rialoom.utils.Debug.log("org.rialoom.drupal.models.UserData .setSessionId() | id: " + id);
     //TODO dispatch event ON_SESSION_ID_SET
 };
 

@@ -43,3 +43,4 @@ org.rialoom.drupal.events.SystemEvent.prototype.toString = function ( )
 
 
 org.rialoom.drupal.events.SystemEvent.ON_CONNECTED = "ON_CONNECTED";
+org.rialoom.drupal.events.SystemEvent.ON_CONNECTION_FAILED = "ON_CONNECTION_FAILED";

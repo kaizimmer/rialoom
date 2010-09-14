@@ -18,28 +18,28 @@ org.rialoom.utils.ClassUtils.inherits(org.rialoom.drupal.controller.SystemConnec
 
 
 /**
- * Arbitrary method sample
+ * Connects system to the drupal services
  */
 org.rialoom.drupal.controller.SystemConnectCMD.prototype.execute = function ( event )
 {
     /*/
-    if ( console ) console.log("org.rialoom.drupal.controller.SystemConnectCMD .execute() invoked | " +
+    org.rialoom.utils.Debug.log("org.rialoom.drupal.controller.SystemConnectCMD .execute() invoked | " +
             "event type: " + event.getType() +
             " event target: " + event.getTarget());
     //*/
     var _this = this;
     var servicesData = this.getModelMap().getModel(org.rialoom.drupal.models.ServicesData);
     var gateway = servicesData.getServicesGatewayURL();
-    var serviceRequest = new org.rialoom.drupal.services.request.SystemConnect(gateway);
+    var serviceRequest = new org.rialoom.drupal.services.requests.SystemConnect(gateway);
     if ( !jQuery )
     {
-        if ( console ) console.log("TO USE THE RIALOOM FRAMEWORK YOU NEED TO EMBED THE JQuery Lib first!!!")
+        org.rialoom.utils.Debug.log("TO USE THE RIALOOM FRAMEWORK YOU NEED TO EMBED THE JQuery Lib first!!!")
     }
     new org.rialoom.net.services.ServiceCall(jQuery, serviceRequest, onResult, onError);
 
     function onResult ( res )
     {
-        if ( console ) console.log("org.rialoom.drupal.controller.SystemConnectCMD.execute | onResult | res: " + res);
+        org.rialoom.utils.Debug.log("org.rialoom.drupal.controller.SystemConnectCMD.execute | onResult | res: " + res);
         //var e = new humax_10002.stage.events.SystemEvent(humax_10002.stage.events.SystemEvent.ON_CONNECTED, _this, res);
         var e = new org.rialoom.drupal.events.SystemEvent(org.rialoom.drupal.events.SystemEvent.ON_CONNECTED, _this, res);
         _this.dispatch(e);
@@ -47,7 +47,9 @@ org.rialoom.drupal.controller.SystemConnectCMD.prototype.execute = function ( ev
 
     function onError ( res )
     {
-        if ( console ) console.log("org.rialoom.drupal.controller.SystemConnectCMD.execute | onError | res: " + res);
+        org.rialoom.utils.Debug.log("org.rialoom.drupal.controller.SystemConnectCMD.execute | onError | res: " + res);
+        var e = new org.rialoom.drupal.events.SystemEvent(org.rialoom.drupal.events.SystemEvent.ON_CONNECTION_FAILED, _this, res);
+        _this.dispatch(e);
     }
 };
 

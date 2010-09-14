@@ -24,7 +24,7 @@ org.rialoom.utils.ClassUtils.inherits(org.rialoom.drupal.controller.ListenToBeha
 org.rialoom.drupal.controller.ListenToBehaviorsCMD.prototype.execute = function ( event )
 {
     /*/
-    if ( console ) console.log("org.rialoom.drupal.controller.ListenToBehaviorsCMD .execute() invoked | " +
+    org.rialoom.utils.Debug.log("org.rialoom.drupal.controller.ListenToBehaviorsCMD .execute() invoked | " +
             "event type: " + event.getType() +
             " event target: " + event.getTarget());
     //*/

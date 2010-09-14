@@ -23,7 +23,7 @@ org.rialoom.utils.ClassUtils.inherits(org.rialoom.drupal.controller.DispatchToBe
 org.rialoom.drupal.controller.DispatchToBehaviorsCMD.prototype.execute = function ( event )
 {
     /*/
-    if ( console ) console.log("org.rialoom.drupal.controller.DispatchToBehaviorsCMD .execute() invoked | " +
+    org.rialoom.utils.Debug.log("org.rialoom.drupal.controller.DispatchToBehaviorsCMD .execute() invoked | " +
             "event type: " + event.getType() +
             " event target: " + event.getTarget());
     //*/

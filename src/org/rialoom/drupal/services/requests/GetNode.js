@@ -4,12 +4,12 @@
 * Permission is hereby granted to use, modify, and distribute this file
 * in accordance with the terms of the license agreement accompanying it.
 */
-org.rialoom.utils.ClassUtils.createPackage("org.rialoom.drupal.services.request.GetNode");
+org.rialoom.utils.ClassUtils.createPackage("org.rialoom.drupal.services.requests");
 /**
  * GetNode constructor
  * @author k.zimmer aka engimono
  */
-org.rialoom.drupal.services.request.GetNode = function ( url, sessId, nodeId, nFields )
+org.rialoom.drupal.services.requests.GetNode = function ( url, sessId, nodeId, nFields )
 {
     org.rialoom.net.services.ServiceRequest.call(this, url, '"node.get"');
     this.contentType = "json";
@@ -33,14 +33,14 @@ org.rialoom.drupal.services.request.GetNode = function ( url, sessId, nodeId, nF
     }
 };
 
-org.rialoom.utils.ClassUtils.inherits(org.rialoom.drupal.services.request.GetNode, org.rialoom.net.services.ServiceRequest);
+org.rialoom.utils.ClassUtils.inherits(org.rialoom.drupal.services.requests.GetNode, org.rialoom.net.services.ServiceRequest);
 
 /**
  * toString Method
  */
-org.rialoom.drupal.services.request.GetNode.prototype.toString = function ( )
+org.rialoom.drupal.services.requests.GetNode.prototype.toString = function ( )
 {
-    return "[org.rialoom.drupal.services.request.GetNode]";
+    return "[org.rialoom.drupal.services.requests.GetNode]";
 };
 
 
