@@ -9,9 +9,10 @@ org.rialoom.utils.ClassUtils.createPackage("org.rialoom.events");
  * EventListenerList constructor
  * @author k.zimmer aka engimono
  */
-org.rialoom.events.EventListenerList = function ( eventName )
+org.rialoom.events.EventListenerList = function ( eventName, eventClass )
 {
     var _eventName = eventName;
+    var _eventClass = eventClass;
     var _listeners = new Array();
     /**
      * Adds passed listener
@@ -50,6 +51,13 @@ org.rialoom.events.EventListenerList = function ( eventName )
     this.getEventName = function ( ) //:String
     {
         return _eventName;
+    };
+    /**
+     * Returns the lists event class (returns null if no class was specified)
+     */
+    this.getEventClass = function ( ) //:Function
+    {
+        return _eventClass;
     };
     /**
      * Returns listeners

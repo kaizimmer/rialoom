@@ -14,14 +14,16 @@ org.rialoom.events.EventListenerListCollection = function ( )
     var _listenerLists = new Array();
     /**
      * Returns EventListenerList corresponding to the passed event name.
-     * listName String  The event name of the EventListenerList
+     * eventName String  The event name of the EventListenerList
+     * eventClass Function  The event class of the EventListenerList [optional]
      * Returns the EventListenerList or null
      */
-    this.getListenerList = function ( listName ) //:EventListenerList
+    this.getListenerList = function ( eventName, eventClass ) //:EventListenerList
     {
         for ( var i = 0; i < _listenerLists.length; i++ )
         {
-            if ( _listenerLists[i].getEventName() == listName )
+            if ( _listenerLists[i].getEventName() == eventName &&
+                 _listenerLists[i].getEventClass() == eventClass )
             {
                 return _listenerLists[i];
             }
@@ -30,21 +32,23 @@ org.rialoom.events.EventListenerListCollection = function ( )
     };
     /**
      * Adds new EventListenerList
-     * listName String  The event name of the EventListenerList
+     * eventName String  The event name of the EventListenerList
+     * eventClass Function  The event class of the EventListenerList [optional]
      * Returns the EventListenerList or null
      */
-    this.addListenerList = function ( listName ) //:EventListenerList
+    this.addListenerList = function ( eventName, eventClass ) //:EventListenerList
     {
         // prevent adding list duplicates
         for ( var i = 0; i < _listenerLists.length; i++ )
         {
-            if ( _listenerLists[i].getEventName() == listName )
+            if ( _listenerLists[i].getEventName() == eventName &&
+                 _listenerLists[i].getEventClass() == eventClass )
             {
                 return null;
             }
         }
         var _list =
-            new org.rialoom.events.EventListenerList(listName);
+            new org.rialoom.events.EventListenerList(eventName, eventClass);
         _listenerLists.push(_list);
         return _list;
     };
