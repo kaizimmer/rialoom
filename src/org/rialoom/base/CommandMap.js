@@ -76,6 +76,14 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
                 commands: []
             };
         }
+        // prohibit multiple registrations of same cmd class + event class couplings
+        var cmds = _eventLists[eventType].commands;
+        for ( var i = 0; i < cmds.length; i++ )
+        {
+            if ( cmds[i].eventClass != eventClass ) continue;
+            if ( cmds[i].command != commandClass ) continue;
+            return false;
+        }
         // add listener
         _eventLists[eventType].commands.push(
             {
@@ -92,16 +100,13 @@ org.rialoom.base.CommandMap = function ( eventDispatcher, mediatorMap, modelMap 
     this.unmapEvent = function ( eventType, commandClass, eventClass )
     {
         if ( !_eventLists[eventType] ) return false;
-        if ( eventClass )
-        {
-            if ( _eventLists[eventType].eventClass != eventClass ) return false;
-        }
+        //
         var cmds = _eventLists[eventType].commands;
         for ( i = 0; i < cmds.length; i++ )
         {
             if ( cmds[i].command == commandClass )
             {
-                if ( cmds[i].eventClass != null && cmds[i].eventClass != eventClass ) continue;
+                if ( cmds[i].eventClass != eventClass ) continue;
                 cmds.splice(i,1);
                 return true;
             }
