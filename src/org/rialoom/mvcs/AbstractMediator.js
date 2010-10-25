@@ -22,7 +22,7 @@ org.rialoom.utils.ClassUtils.inherits(org.rialoom.mvcs.AbstractMediator, org.ria
 
 org.rialoom.mvcs.AbstractMediator.prototype.onRegister = function ( )
 {
-    throw new Error("org.rialoom.mvcs.AbstractMediator must be overriden by subclass!");
+    throw new Error("org.rialoom.mvcs.AbstractMediator.onRegister must be overriden by subclass!");
 };
 
 /**

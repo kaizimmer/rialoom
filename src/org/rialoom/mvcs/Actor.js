@@ -12,6 +12,7 @@ org.rialoom.utils.ClassUtils.createPackage("org.rialoom.mvcs");
 org.rialoom.mvcs.Actor = function ( )
 {
     // following functions need to be mixed in (probably by ActorMap)
+    this.mapID = null;
     this.dispatch = function ( event ) {};
     this.getEventDispatcher = function () {};
 };
