@@ -6,7 +6,7 @@
 */
 org.rialoom.utils.ClassUtils.createPackage("org.rialoom.mvcs");
 /**
- * TestViewMediator constructor
+ * AbstractMediator constructor
  * @author k.zimmer aka engimono
  */
 org.rialoom.mvcs.AbstractMediator = function ( )
