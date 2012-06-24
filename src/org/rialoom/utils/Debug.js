@@ -9,35 +9,133 @@ if ( !org.rialoom ) org.rialoom = {};
 if ( !org.rialoom.utils ) org.rialoom.utils = {};
 if ( !org.rialoom.utils.Debug )
 org.rialoom.utils.Debug = {};
-org.rialoom.utils.Debug.isLogging = true;
 
-org.rialoom.utils.Debug.log = function ( )
+org.rialoom.utils.Debug.LOG_LEVEL_ALL = "all";
+org.rialoom.utils.Debug.LOG_LEVEL_LOG = "log";
+org.rialoom.utils.Debug.LOG_LEVEL_WARN = "warn";
+org.rialoom.utils.Debug.LOG_LEVEL_ERROR = "error";
+
+
+(function ( )
 {
-    if ( !this.isLogging ) return;
-    try
+    var logLevel = org.rialoom.utils.Debug.LOG_LEVEL_ALL;
+    var logMethod;
+    var isLogging = true;
+
+    function _log ( )
     {
-        if ( navigator.userAgent.toLowerCase().indexOf("msie 8") == -1 )
+        if ( !isLogging ) return;
+
+        try
         {
-            console.log.apply(console, arguments);
+            if ( navigator.userAgent.toLowerCase().indexOf("msie 8") == -1 )
+            {
+                console[logMethod].apply(console, arguments);
+            }
+            else {
+                var args = [];
+                for ( var i = 0; i < arguments.length; i++ ) args.push(arguments[i]);
+                try {
+                    console[logMethod](args.join(" | "));
+                }
+                catch ( err )
+                {
+                    console.log(args.join(" | "));
+                }
+            }
         }
-        else {
-            var args = [];
-            for ( var i = 0; i < arguments.length; i++ ) args.push(arguments[i]);
-            console.log(args.join(" | "));
+        catch ( err )
+        {
+            // fail silently
         }
     }
-    catch ( e )
+
+    function log ( )
     {
-        // 
+        switch ( logLevel )
+        {
+            case org.rialoom.utils.Debug.LOG_LEVEL_ALL:
+            case logMethod:
+                _log.apply(null, arguments);
+                break;
+        }
     }
-};
 
-org.rialoom.utils.Debug.activateLogging = function ( )
-{
-    this.isLogging = true;
-};
+    function logCustom ( )
+    {
+        switch ( logLevel )
+        {
+            case org.rialoom.utils.Debug.LOG_LEVEL_ALL:
+            case logMethod:
+                logMethod = "log";
+                _log.apply(null, arguments);
+                break;
+        }
+    }
 
-org.rialoom.utils.Debug.disableLogging = function ( )
-{
-    this.isLogging = false;
-};
+    org.rialoom.utils.Debug.log = function ( )
+    {
+        logMethod = "log";
+        log.apply(null, arguments);
+    };
+
+    org.rialoom.utils.Debug.warn = function ( )
+    {
+        logMethod = "warn";
+        log.apply(null, arguments);
+    };
+
+    org.rialoom.utils.Debug.error = function ( )
+    {
+        logMethod = "error";
+        log.apply(null, arguments);
+    };
+
+    org.rialoom.utils.Debug.logCustom = function ( customLevel )
+    {
+        logMethod = customLevel;
+        logCustom.apply(null, Array.prototype.slice.call(arguments, 1));
+    };
+
+    org.rialoom.utils.Debug.setLogLevel = function ( level, isCustomLevel )
+    {
+        if ( isCustomLevel )
+        {
+            logLevel = level;
+            return;
+        }
+
+        switch ( level )
+        {
+            case org.rialoom.utils.Debug.LOG_LEVEL_LOG:
+            case org.rialoom.utils.Debug.LOG_LEVEL_WARN:
+            case org.rialoom.utils.Debug.LOG_LEVEL_ERROR:
+            case org.rialoom.utils.Debug.LOG_LEVEL_ALL:
+                logLevel = level;
+                break;
+            default:
+                logLevel = org.rialoom.utils.Debug.LOG_LEVEL_ALL;
+        }
+    };
+
+    org.rialoom.utils.Debug.getLogLevel = function ( )
+    {
+        return logLevel;
+    };
+
+    org.rialoom.utils.Debug.activateLogging = function ( )
+    {
+        isLogging = true;
+    };
+
+    org.rialoom.utils.Debug.disableLogging = function ( )
+    {
+        isLogging = false;
+    };
+
+    org.rialoom.utils.Debug.checkIfIsLogging = function ( )
+    {
+        return isLogging;
+    };
+
+})();
