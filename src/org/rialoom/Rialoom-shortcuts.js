@@ -7,6 +7,7 @@
 if ( this.ria == null )
 {
 	this.ria = org.rialoom;
+	ria.buildDate = org.rialoom.buildDate;
 	// inheritance
 	ria.createPackage = function ( packagePath ) { return org.rialoom.utils.ClassUtils.createPackage(packagePath) };
 	ria.createConstructor = function ( packagePath, className ) { return org.rialoom.utils.ClassUtils.createConstructor(packagePath, className) };
