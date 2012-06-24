@@ -3,3 +3,5 @@ build
 test
 .idea
 *.iml
+
+/src/org/rialoom/RemLog.js
