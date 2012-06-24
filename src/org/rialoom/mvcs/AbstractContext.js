@@ -43,8 +43,15 @@ org.rialoom.mvcs.AbstractContext = function ( )
     this.startup();
 };
 
+org.rialoom.mvcs.AbstractContext.prototype.mapModels = function ( ){};
+org.rialoom.mvcs.AbstractContext.prototype.mapCommands = function ( ){};
+org.rialoom.mvcs.AbstractContext.prototype.mapMediators = function ( ){};
+
 org.rialoom.mvcs.AbstractContext.prototype.startup = function ( )
 {
+    this.mapModels();
+    this.mapCommands();
+    this.mapMediators();
     var d = this.getEventDispatcher();
     var e =
         new org.rialoom.base.ContextEvent(
