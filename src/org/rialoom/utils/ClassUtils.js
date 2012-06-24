@@ -26,7 +26,7 @@ function ( packagePath )
         scope = scope[packages[i]];
     }
     return scope;
-}
+};
 
 org.rialoom.utils.ClassUtils.createConstructor =
 function ( packagePath, className )
@@ -36,7 +36,7 @@ function ( packagePath, className )
     var pack = org.rialoom.utils.ClassUtils.createPackage(packagePath);
     if ( pack[className] == null ) pack[className] = new Function();
     return pack[className];
-}
+};
 
 org.rialoom.utils.ClassUtils.inherits = function ( subClass, superClass )
 {
@@ -46,3 +46,15 @@ org.rialoom.utils.ClassUtils.inherits = function ( subClass, superClass )
     subClass.prototype.constructor = subClass;
     subClass._superClass = superClass.prototype;
 };
+/**
+ * Credits to Angus Croll
+ * https://github.com/angus-c
+ * http://tinyurl.com/fixing-typeof
+ */
+org.rialoom.utils.ClassUtils.getTypeOf = (function ( global ) {
+    return function ( instance )
+    {
+        if ( instance === global ) return "_global";
+        return Object.prototype.toString.call(instance).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
+    };
+})(this);
