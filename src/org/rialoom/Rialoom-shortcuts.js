@@ -13,8 +13,16 @@ if ( this.ria == null )
 	ria.inherits = function ( subClass, superClass ) { return org.rialoom.utils.ClassUtils.inherits( subClass, superClass ) };
 	// debugging
 	ria.log = function ( message ) { return org.rialoom.utils.Debug.log.apply(org.rialoom.utils.Debug, arguments); };
+	ria.warn = function ( message ) { return org.rialoom.utils.Debug.warn.apply(org.rialoom.utils.Debug, arguments); };
+	ria.error = function ( message ) { return org.rialoom.utils.Debug.error.apply(org.rialoom.utils.Debug, arguments); };
+	ria.logCustom = function ( customLevel, message ) { return org.rialoom.utils.Debug.logCustom.apply(org.rialoom.utils.Debug, arguments); };
+	ria.setLogLevel = function ( level, isCustomLevel ) { return org.rialoom.utils.Debug.setLogLevel.apply(org.rialoom.utils.Debug, arguments); };
+	ria.getLogLevel = function ( ) { return org.rialoom.utils.Debug.getLogLevel.apply(org.rialoom.utils.Debug, arguments); };
+	
 	ria.activateLogging = function ( ) { return org.rialoom.utils.Debug.activateLogging.apply(org.rialoom.utils.Debug); };
 	ria.disableLogging = function ( ) { return org.rialoom.utils.Debug.disableLogging.apply(org.rialoom.utils.Debug); };
+	ria.checkIfIsLogging = function ( ) { return org.rialoom.utils.Debug.checkIfIsLogging.apply(org.rialoom.utils.Debug); };
+	
 	// delegation
 	/**
 	 * Delegates method calls to passed handler. Handler scope is defined by passed scope argument.
