@@ -65,8 +65,10 @@ org.rialoom.base.MediatorMap = function ( eventDispatcher, modelMap )
                  _mappedElements.push($views[i]);
                  createMediator($($views[i]), mediatorClass, id);
              }
+             /*/
              else org.rialoom.utils.Debug.log("org.rialoom.base.MediatorMap.(mapView/mapElement) | " +
                                               "Mapping failed !!! Already mapped dom element ", $views[i]);
+             //*/
          }
      };
      /**
@@ -78,10 +80,9 @@ org.rialoom.base.MediatorMap = function ( eventDispatcher, modelMap )
          if ( selector == null )
              throw new Error ("org.rialoom.base.MediatorMap.mapSelector | no selector param passed");
          if ( !mediatorClass || !(mediatorClass.prototype instanceof org.rialoom.mvcs.AbstractMediator) )
-             throw new Error ("org.rialoom.base.MediatorMap.mapSelector | " +
+             throw new Error ("org.rialoom.base.MediatorMap.mapSelector | " + selector + " | " +
                               "passed bad mediatorClass [ " + mediatorClass + " ]");
-         var $views = $(selector);
-         for ( var i = 0; i < $views.length; i++ ) createMediator($($views[i]), mediatorClass);
+         this.mapView(selector, mediatorClass);
          if ( !makeScanable ) return;
          // prevent multiple selector mappings
          for ( i = 0; i < _selectorsToMap.length; i++ )
