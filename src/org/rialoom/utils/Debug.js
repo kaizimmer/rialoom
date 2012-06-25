@@ -18,9 +18,22 @@ org.rialoom.utils.Debug.LOG_LEVEL_ERROR = "error";
 
 (function ( )
 {
-    var logLevel = org.rialoom.utils.Debug.LOG_LEVEL_ALL;
+    var logLevel;
     var logMethod;
     var isLogging = true;
+
+	try {
+	    var rialoomConfig = JSON.parse(localStorage.getItem("rialoom"));
+	    if ( rialoomConfig.logLevel != null )
+	    {
+		    logLevel = rialoomConfig.logLevel;
+	    }
+    }
+    catch ( err )
+    {
+	    logLevel = org.rialoom.utils.Debug.LOG_LEVEL_ALL;
+    }
+
 
     function _log ( )
     {
@@ -99,23 +112,36 @@ org.rialoom.utils.Debug.LOG_LEVEL_ERROR = "error";
 
     org.rialoom.utils.Debug.setLogLevel = function ( level, isCustomLevel )
     {
-        if ( isCustomLevel )
-        {
-            logLevel = level;
-            return;
-        }
-
-        switch ( level )
-        {
-            case org.rialoom.utils.Debug.LOG_LEVEL_LOG:
-            case org.rialoom.utils.Debug.LOG_LEVEL_WARN:
-            case org.rialoom.utils.Debug.LOG_LEVEL_ERROR:
-            case org.rialoom.utils.Debug.LOG_LEVEL_ALL:
-                logLevel = level;
-                break;
-            default:
-                logLevel = org.rialoom.utils.Debug.LOG_LEVEL_ALL;
-        }
+		if ( isCustomLevel )
+		{
+		    logLevel = level;
+		}
+		else {
+		    switch ( level )
+		    {
+		        case org.rialoom.utils.Debug.LOG_LEVEL_LOG:
+		        case org.rialoom.utils.Debug.LOG_LEVEL_WARN:
+		        case org.rialoom.utils.Debug.LOG_LEVEL_ERROR:
+		        case org.rialoom.utils.Debug.LOG_LEVEL_ALL:
+		            logLevel = level;
+		            break;
+		        default:
+		            logLevel = org.rialoom.utils.Debug.LOG_LEVEL_ALL;
+		    }
+		}
+	    try {
+		    var rialoomConfig = JSON.parse(localStorage.getItem("rialoom"));
+		    if ( rialoomConfig == null )
+		    {
+			    rialoomConfig = {};
+		    }
+		    rialoomConfig.logLevel = logLevel;
+		    localStorage.setItem("rialoom", JSON.stringify(rialoomConfig));
+	    }
+	    catch ( err )
+	    {
+		    // fail silently for now
+	    }
     };
 
     org.rialoom.utils.Debug.getLogLevel = function ( )
