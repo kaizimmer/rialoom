@@ -49,7 +49,7 @@ org.rialoom.events.EventDispatcher = function ( )
         var _list2 = _listCol.getListenerList(event.getType());
         if ( _list1 != null )
         {
-            var _listeners1 = _list1.getListeners();
+            var _listeners1 = _list1.getListeners().slice();
             for ( var i = 0; i < _listeners1.length; i++ )
             {
                 if ( event.getIsPropagationStopped() ) return;
@@ -58,7 +58,7 @@ org.rialoom.events.EventDispatcher = function ( )
         }
         if ( _list2 != null )
         {
-            var _listeners2 = _list2.getListeners();
+            var _listeners2 = _list2.getListeners().slice();
             for ( var j = 0; j < _listeners2.length; j++ )
             {
                 if ( event.getIsPropagationStopped() ) return;
